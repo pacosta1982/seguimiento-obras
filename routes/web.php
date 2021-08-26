@@ -14,8 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('/projects', 'App\Http\Controllers\Admin\HomeController@index');
+Route::get('/projects/{project}/show', 'App\Http\Controllers\Admin\HomeController@show');
+Route::get('/visits/{visit}/show', 'App\Http\Controllers\Admin\HomeController@showVisit');
+//Expedientes
+Route::get('/files', 'App\Http\Controllers\Admin\ExpedienteController@index');
+Route::get('files/{numero}', 'App\Http\Controllers\Admin\ExpedienteController@show');
+//Potulantes
+Route::get('/applicants', 'App\Http\Controllers\Admin\PostulanteController@index');
+//Beneficiarios
+Route::get('/beneficiaries', 'App\Http\Controllers\Admin\BeneficiariosController@index');
 
 
 /* Auto-generated admin routes */

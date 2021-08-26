@@ -21,6 +21,7 @@
         "vue-loader": "^15.9.8"
     },
     "dependencies": {
+        "@splidejs/vue-splide": "^0.3.5",
         "chart.js": "^2.9.4",
         "vue-chartjs": "^3.5.1",
         "vue2-google-maps": "^0.10.7"

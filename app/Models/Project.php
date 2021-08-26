@@ -39,7 +39,7 @@ class Project extends Model /*implements HasMedia*/
 
     ];
 
-    protected $appends = ['resource_url'];
+    protected $appends = ['resource_url', 'is_admin'];
     protected $with = ['visits', 'advance', 'departamento', 'distrito'];
 
     public function visits()
@@ -69,5 +69,10 @@ class Project extends Model /*implements HasMedia*/
     public function getResourceUrlAttribute()
     {
         return url('/admin/projects/' . $this->getKey());
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return url('projects/' . $this->getKey());
     }
 }

@@ -37,7 +37,8 @@ class Visit extends Model implements HasMedia
 
     ];
 
-    protected $appends = ['resource_url'];
+    protected $appends = ['resource_url', 'is_admin'];
+    //protected $with = ['files'];
 
     function registerMediaCollections(): void
     {
@@ -61,5 +62,15 @@ class Visit extends Model implements HasMedia
     public function getResourceUrlAttribute()
     {
         return url('/admin/visits/' . $this->getKey());
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return url('visits/' . $this->getKey());
+    }
+
+    public function files()
+    {
+        //return Media::where(['model_id' => 22])->get()->count();
     }
 }

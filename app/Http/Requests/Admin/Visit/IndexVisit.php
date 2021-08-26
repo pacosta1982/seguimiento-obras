@@ -12,10 +12,10 @@ class IndexVisit extends FormRequest
      *
      * @return bool
      */
-    public function authorize(): bool
+    /*public function authorize(): bool
     {
         return Gate::allows('admin.visit.index');
-    }
+    }*/
 
     /**
      * Get the validation rules that apply to the request.

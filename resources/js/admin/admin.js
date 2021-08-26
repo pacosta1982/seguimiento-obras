@@ -12,17 +12,20 @@ import { Admin } from 'craftable';
 import VModal from 'vue-js-modal'
 import Vue from 'vue';
 import * as VueGoogleMaps from 'vue2-google-maps'
+import VueSplide from '@splidejs/vue-splide';
 
 import './app-components/bootstrap';
 import './index';
 
 import 'craftable/dist/ui';
-
+Vue.use( VueSplide );
 Vue.component('multiselect', Multiselect);
 Vue.use(VeeValidate, {strict: true});
 Vue.component('datetime', flatPickr);
 Vue.component('googlemap', require('../components/AddGoogleMap.vue').default);
 Vue.component('grafico', require('../components/grafico.vue').default);
+Vue.component('slide', require('../components/slide.vue').default);
+Vue.component('expediente', require('../components/expedientes.vue').default);
 //Vue.component('chartmap', require('../components/ChartMap.vue').default);
 Vue.use(VModal, { dialog: true, dynamic: true, injectModalsContainer: true });
 Vue.use(VueQuillEditor);
