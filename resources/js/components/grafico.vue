@@ -1,6 +1,7 @@
 <script>
 
 import { Line } from 'vue-chartjs'
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 export default {
   extends: Line,
@@ -17,6 +18,54 @@ export default {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      legend: {
+                display:true,
+                position: 'bottom',
+                labels: {
+                    fontColor:  '#000'
+                }
+            },
+     /*tooltips: {
+            callbacks: {
+                labelColor: function(tooltipItem, chart) {
+                    return {
+                        borderColor: 'rgb(255, 0, 0)',
+                        backgroundColor: 'rgb(255, 0, 0)'
+                    };
+                },
+                labelTextColor: function(tooltipItem, chart) {
+                    return '#543453';
+                }
+            }
+        },*/
+plugins: {
+      datalabels: {
+        backgroundColor: function(context) {
+          return context.dataset.backgroundColor;
+        },
+        borderRadius: 4,
+        color: 'white',
+        font: {
+          weight: 'bold'
+        },
+        formatter: Math.round,
+        padding: 6
+      }
+    },
+      tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                    var value = tooltipItem.value;
+                    console.log(tooltipItem.value);
+                    /*if (label) {
+                        label += ': ';
+                    }
+                    label += Math.round(tooltipItem.yLabel * 100) / 100;*/
+                    return label + ' ' + value + ' %';
+                }
+            }
+        },
       title: {
                 display: true,
                 text: '% De Avance por Visitas'
@@ -43,7 +92,7 @@ export default {
   }),
 
   mounted () {
-      console.log(this.label);
+      //console.log(this.label);
     this.renderChart({
       labels: this.label,
       datasets: [
@@ -52,8 +101,13 @@ export default {
           borderColor: 'red',
           backgroundColor: 'red',
           fill: false,
-          data: this.values
-        }
+          data: this.values,
+      datalabels: {
+        align: 'start',
+        anchor: 'start'
+      }
+        },
+
       ]
     }, this.options)
   }

@@ -4,14 +4,12 @@
         <gmap-map
             :zoom="14"
             :center="center"
-            style="width:100%;  height: 200px;"
+            map-type-id="satellite"
+            style="width:100%;  height: 300px;"
         >
-            <!--<gmap-marker
-                :key="index"
-                v-for="(m, index) in locationMarkers"
-                :position="m.position"
-                @click="center = m.position"
-            ></gmap-marker>-->
+            <gmap-marker
+                :position="center"
+            ></gmap-marker>
         </gmap-map>
     </div>
 </template>

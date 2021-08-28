@@ -59,7 +59,8 @@ class ProjectController extends Controller
             ->modifyQuery(function ($query) use ($request) {
                 $query->where('SEOBAdmin', 8);
                 $query->where('SEOBPlan', 14);
-                $query->where('SEOBProgr', '!=', 16);
+                $query->where('SEOBProgr', 4);
+                //$query->where('SEOBPlan', 4);
                 if ($request->search) {
                     //return 'funciona';
 

@@ -23,6 +23,7 @@
     "dependencies": {
         "@splidejs/vue-splide": "^0.3.5",
         "chart.js": "^2.9.4",
+        "chartjs-plugin-datalabels": "^1.0.0",
         "vue-chartjs": "^3.5.1",
         "vue2-google-maps": "^0.10.7"
     }

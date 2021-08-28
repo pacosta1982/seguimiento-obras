@@ -25,8 +25,10 @@ Route::get('/files', 'App\Http\Controllers\Admin\ExpedienteController@index');
 Route::get('files/{numero}', 'App\Http\Controllers\Admin\ExpedienteController@show');
 //Potulantes
 Route::get('/applicants', 'App\Http\Controllers\Admin\PostulanteController@index');
+Route::get('/applicants/{cedula}', 'App\Http\Controllers\Admin\PostulanteController@show');
 //Beneficiarios
-Route::get('/beneficiaries', 'App\Http\Controllers\Admin\BeneficiariosController@index');
+Route::get('/beneficiaries', 'App\Http\Controllers\Admin\BeneficiarioController@index');
+Route::get('/beneficiaries/{cedula}', 'App\Http\Controllers\Admin\BeneficiarioController@show');
 
 
 /* Auto-generated admin routes */

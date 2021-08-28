@@ -39,6 +39,7 @@
                                         <th is='sortable' :column="'project_id'">{{ trans('admin.projects.columns.state') }}</th>
                                         <th is='sortable' :column="'project_id'">{{ trans('admin.projects.columns.city') }}</th>
                                         <th is='sortable' :column="'visit_number'">{{ trans('admin.projects.columns.SEOBEmpr') }}</th>
+                                        <th is='sortable' :column="'advance'">{{ trans('admin.projects.columns.casas') }}</th>
                                         <th is='sortable' :column="'advance'">{{ trans('admin.projects.columns.SEOBAvanc') }}</th>
                                         <th></th>
                                     </tr>
@@ -51,6 +52,7 @@
                                         <td>@{{ item.departamento ? item.departamento.DptoNom : '' }}</td>
                                         <td>@{{ item.distrito ? item.distrito.CiuNom : '' }}</td>
                                         <td>@{{ item.SEOBEmpr }}</td>
+                                        <td class="text-center">@{{ item.SEOBViv }}</td>
                                         <td>@{{ item.advance ? item.advance.advance : '0' }} %</td>
                                         <td>
                                             <div class="row no-gutters">

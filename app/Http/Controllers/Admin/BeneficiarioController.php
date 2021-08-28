@@ -1,9 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\SHMCER;
+use App\Models\SHMCER;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\SIG005L1;
+use App\Models\SIG005;
+use App\Models\SIG006;
+
 
 class BeneficiarioController extends Controller
 {
@@ -12,6 +17,13 @@ class BeneficiarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function index(Request $request)
+    {
+
+        return view('guest.beneficiaries.index');
+    }
+
     public function show($cedula)
     {
         $estado = "";
@@ -68,7 +80,6 @@ class BeneficiarioController extends Controller
                 return [
                     'error' => 'No existe Registro de Beneficiario ' . $cedula,
                 ];
-
             } else {
                 $parentesco = "conyuge";
             }
@@ -126,11 +137,7 @@ class BeneficiarioController extends Controller
      * @param  \App\SHMCER  $sHMCER
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('beneficiarios');
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

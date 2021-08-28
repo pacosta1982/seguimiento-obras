@@ -26,6 +26,9 @@ Vue.component('googlemap', require('../components/AddGoogleMap.vue').default);
 Vue.component('grafico', require('../components/grafico.vue').default);
 Vue.component('slide', require('../components/slide.vue').default);
 Vue.component('expediente', require('../components/expedientes.vue').default);
+Vue.component('postulante', require('../components/postulantes.vue').default);
+Vue.component('beneficiario', require('../components/beneficiarios.vue').default);
+
 //Vue.component('chartmap', require('../components/ChartMap.vue').default);
 Vue.use(VModal, { dialog: true, dynamic: true, injectModalsContainer: true });
 Vue.use(VueQuillEditor);

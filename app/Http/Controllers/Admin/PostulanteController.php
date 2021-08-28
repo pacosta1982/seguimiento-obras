@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\SIG005L1;
-use App\SIG005;
-use App\SIG006;
+use App\Models\SIG005L1;
+use App\Models\SIG005;
+use App\Models\SIG006;
 use Illuminate\Http\Request;
 
 class PostulanteController extends Controller
@@ -70,8 +70,11 @@ class PostulanteController extends Controller
             //$historial = SIG006::where('NroExp',$request->input('NroExp')/*$idexp 1803411*/);
 
             $historial = SIG006::where('NroExp', $postulante->ExpDNro)->orderBy('DENroLin', 'asc')->get();
+            $date = new \DateTime($historial->first()->DEFecDis);
             foreach ($historial as $key => $sat) {
+                $now = new \DateTime($sat->DEFecDis);
                 $datasat[] = [
+                    'dias' => $date->diff($now)->format("%a") != 0 ? $date->diff($now)->format("%a") : "-",
                     'nro' => trim($sat->DENroLin),
                     'fecha' => date('d/m/Y', strtotime($sat->DEFecDis)),
                     'origen' => trim($sat->DEUnOrHa ? $sat->deporigen->DepenDes : ""),
@@ -86,12 +89,9 @@ class PostulanteController extends Controller
             $proyecto_historial = SIG006::where('NroExp', $postulante->NroExp)->orderBy('DENroLin', 'asc')->get();
         }
 
-        /*if (!empty($benficiario)) {
-            $estado = true;
-            $certificado = $certificados_vigencia[$benficiario['CerEst'] ? $benficiario['CerEst'] : 99];
-            $programa = $programas[$benficiario['CerProg'] ? $benficiario['CerProg'] : 0];
-        }*/
-
+        $tipo = $cabecera->TexCod ? $cabecera->tiposol->TexDes : "N/A";
+        $date = new \DateTime($historial->first()->DEFecDis);
+        $total = $date->diff(new \DateTime())->format("%a");
 
 
         return [
@@ -99,7 +99,9 @@ class PostulanteController extends Controller
             'cabecera' => $cabecera,
             'historial' => $datasat,
             'proyecto' => $proyecto,
-            'proyecto_historial' => $proyecto_historial
+            'tipo_sol' => trim($tipo),
+            'proyecto_historial' => $proyecto_historial,
+            'total' => $total
             /*'estado' => $estado,
             'titular' => $parentesco,
             'certificado' => $certificado,
