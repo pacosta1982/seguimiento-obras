@@ -7,6 +7,7 @@
 <div class="card">
     <div class="card-header text-center">
          DATOS DEL PROYECTO
+         <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0" href="{{ url()->previous() }}" role="button"><i class="fa fa-undo"></i>&nbsp; {{ trans('admin.guest.actions.back') }}</a>
     </div>
 
     <div class="card-body">
@@ -64,7 +65,7 @@
     <div class="card-body">
     <googlemap :latitude="{{ $latlong["lat"] ? $latlong["lat"] : '-25.2949068' }}" :longitude="{{ $latlong["lon"] ? $latlong["lon"]: '-57.6087548' }}" />
     </div>
-  </div>
+</div>
 
 <visit-listing
         :data="{{ $data->toJson() }}"
@@ -110,7 +111,7 @@
                                         <td class="text-center">@{{ item.id }}</td>
                                         <!--<td>@{{ item.project_id }}</td>-->
                                         <td class="text-center">@{{ item.visit_number }}</td>
-                                        <td class="text-center">@{{ item.advance }}</td>
+                                        <td class="text-center">@{{ item.advance }} %</td>
                                         <td class="text-center">@{{ item.visit_date | datetime }}</td>
                                         <td class="text-center">-</td>
                                         <td>

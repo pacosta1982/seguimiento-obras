@@ -40,7 +40,7 @@ class Project extends Model /*implements HasMedia*/
     ];
 
     protected $appends = ['resource_url', 'is_admin'];
-    protected $with = ['visits', 'advance', 'departamento', 'distrito', 'fonavisproy'];
+    protected $with = ['visits', 'advance', 'departamento', 'distrito', 'fonavisproy', 'status'];
 
     public function visits()
     {
@@ -55,6 +55,11 @@ class Project extends Model /*implements HasMedia*/
     public function distrito()
     {
         return $this->hasOne(Distrito::class, 'CiuId', 'CiuId');
+    }
+
+    public function status()
+    {
+        return $this->hasOne(Estado::class, 'value', 'SEOBEst');
     }
 
     public function departamento()

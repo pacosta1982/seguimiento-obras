@@ -1,0 +1,117 @@
+<script>
+
+import { Pie } from 'vue-chartjs'
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+export default {
+  extends: Pie,
+  /*props: {
+        label: {
+            type: Array
+        },
+        values: {
+            type: Array
+        }
+    },*/
+  name: "grafico",
+  data: () => ({
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display:true,
+                position: 'bottom',
+                labels: {
+                    fontColor:  '#000'
+                }
+            },
+     /*tooltips: {
+            callbacks: {
+                labelColor: function(tooltipItem, chart) {
+                    return {
+                        borderColor: 'rgb(255, 0, 0)',
+                        backgroundColor: 'rgb(255, 0, 0)'
+                    };
+                },
+                labelTextColor: function(tooltipItem, chart) {
+                    return '#543453';
+                }
+            }
+        },*/
+plugins: {
+      datalabels: {
+        backgroundColor: function(context) {
+          return context.dataset.backgroundColor;
+        },
+        borderRadius: 4,
+        color: 'white',
+        font: {
+          weight: 'bold'
+        },
+        formatter: Math.round,
+        padding: 6
+      }
+    },
+      /*tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                    var value = tooltipItem.value;
+                    console.log(tooltipItem.value);
+                    /*if (label) {
+                        label += ': ';
+                    }
+                    label += Math.round(tooltipItem.yLabel * 100) / 100;*
+                    return label + ' ' + value + ' %';
+                }
+            }
+        },
+      title: {
+                display: true,
+                text: '% De Avance por Visitas'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, values) {
+                            return  value + ' %';
+                        }
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, values) {
+                            return  'visita ' + value;
+                        }
+                    }
+                }]
+            }*/
+    }
+  }),
+
+  mounted () {
+      //console.log(this.label);
+    this.renderChart({
+      labels: ['0% - 20%','21% - 40%','41% - 60%','61% - 80', '81% - 100'],
+      datasets: [
+        {
+          label: 'Avance',
+          borderColor: 'black',
+          backgroundColor: ['#F86F5F','#F6F454','#1FDC61','blue','grey'],
+          hoverBackgroundColor : ['#F86F5F','#F6F454', '#1FDC61',],
+          fill: false,
+          data: [11,2,1,0,0],
+      datalabels: {
+        align: 'start',
+        anchor: 'start'
+      }
+        },
+
+      ]
+    }, this.options)
+  }
+}
+
+</script>

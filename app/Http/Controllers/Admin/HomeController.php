@@ -48,9 +48,31 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function dashboard()
+    {
+        $dt = new \DateTime('2021-05-21');
+        $date = $dt->format('Y-d-m H:i:s.v');
+        $datos =  Project::where('SEOBAdmin', 8)
+            ->where('SEOBPlan', 14)
+            ->where('SEOBProgr', 4)
+            ->where('SEOBNCont', '02/2021')
+            ->where('SEOBAdjFec', $date)
+            ->get();
+
+        $estados = $datos->groupBy('SEOBEst')->map(function ($datos) {
+            return $datos->count();
+        });
+        //return $estados->;
+        //return array_keys($estados->toArray());
+
+        return view('home', compact('estados'));
+    }
+
+
     public function index(Request $request)
     {
 
+        //return 'hola';
         $dt = new \DateTime('2021-05-21');
         $date = $dt->format('Y-d-m H:i:s.v');
         $data = AdminListing::create(Project::class)
@@ -66,19 +88,19 @@ class HomeController extends Controller
                 if ($request->search) {
 
                     $query->where('SEOBProy', 'like', '%' . $request->search . '%');
-                    $query->orWhere('SEOBEmpr', 'like', '%' . $request->search . '%');
+                    //$query->orWhere('SEOBEmpr', 'like', '%' . $request->search . '%');
                     $query->orWhere('SEOBId', 'like', '%' . $request->search . '%');
                 }
             })
-            ->get(['SEOBId', 'SEOBEmpr', 'SEOBProy', 'SEOBAvanc', 'DptoId', 'CiuId', 'SEOBViv']);
+            ->get(['SEOBId', 'SEOBEmpr', 'SEOBProy', 'SEOBAvanc', 'DptoId', 'CiuId', 'SEOBViv', 'SEOBEst']);
 
 
         if ($request->ajax()) {
-            if ($request->has('bulk')) {
+            /*if ($request->has('bulk')) {
                 return [
                     'bulkItems' => $data->pluck('SEOBId')
                 ];
-            }
+            }*/
             return ['data' => $data];
         }
 
@@ -108,7 +130,7 @@ class HomeController extends Controller
                 //->orderBy('requirements.requirement_type_id');
             }
         );
-        //return $project->fonavisproy->SPGnuCod;
+        //return $project;
         //return trim($project->fonavisproy->SPNucCod);
         $postulantes = Subsidio::where('CerNucCod', $project->fonavisproy->SPNucCod)
             ->where('CerGnuCod', $project->fonavisproy->SPGnuCod)
@@ -136,14 +158,14 @@ class HomeController extends Controller
         //$this->authorize('admin.visit.show', $visit);
         //return $visit->getMedia('gallery')->count();
         $datos = [];
-
+        $project = Project::find($visit->project_id);
         foreach ($visit->getMedia('gallery') as $key => $value) {
             array_push($datos, $value->getUrl());
         }
 
-        //return $datos;
+        //return $project;
         // TODO your code goes here
-        return view('guest.visits.show', compact('datos', 'visit'));
+        return view('guest.visits.show', compact('datos', 'visit', 'project'));
     }
 
 
