@@ -57,15 +57,45 @@ class HomeController extends Controller
             ->where('SEOBProgr', 4)
             ->where('SEOBNCont', '02/2021')
             ->where('SEOBAdjFec', $date)
+            ->select('DptoNom', 'SEOBViv', 'SEGOBRA.DptoId', 'SEOBEst', 'SEOBEst', 'ObraEstDesc', 'SEOBFisAva')
+            ->join('BAMDPT', 'SEGOBRA.DptoId', '=', 'BAMDPT.DptoId')
+            ->join('OBRASESTADOS', 'SEGOBRA.SEOBEst', '=', 'OBRASESTADOS.ObraEstCod')
             ->get();
 
-        $estados = $datos->groupBy('SEOBEst')->map(function ($datos) {
+        $estados = $datos->groupBy('ObraEstDesc')->map(function ($datos) {
             return $datos->count();
         });
-        //return $estados->;
-        //return array_keys($estados->toArray());
 
-        return view('home', compact('estados'));
+        //return $estados;
+
+        $departamentos = $datos->groupBy('DptoNom')->map(function ($datos) {
+            return $datos->sum('SEOBViv');
+        });
+
+        //Etiqueta Estados
+        $labels_estados = array_keys($estados->toArray());
+        $labels_estados_fixed = array_map('trim', $labels_estados);
+        //return $labels_estados_fixed;
+
+        //Etiquetas DEpartamentos
+        $labels_dptos = array_keys($departamentos->toArray());
+        $labels_fixed = array_map('trim', $labels_dptos);
+
+        //Avances
+        $avance = [];
+        $a1 = $a2 = $a3 = $a4 = $a5 = $datos;
+
+        $avance = [
+            '0% - 20%' => $a1->where('SEOBFisAva', '<=', 21)->count(),
+            '21% - 40%' => $a2->where('SEOBFisAva', '>', 21)->where('SEOBFisAva', '<=', 40)->count(),
+            '41% - 60%' => $a3->where('SEOBFisAva', '>', 41)->where('SEOBFisAva', '<=', 60)->count(),
+            '61% - 80%' => $a4->where('SEOBFisAva', '>', 61)->where('SEOBFisAva', '<=', 80)->count(),
+            '81% - 100%' => $a5->where('SEOBFisAva', '>', 81)->where('SEOBFisAva', '<=', 100)->count(),
+        ];
+
+        //return array_values($avance);
+
+        return view('home', compact('estados', 'departamentos', 'labels_fixed', 'labels_estados_fixed', 'avance'));
     }
 
 

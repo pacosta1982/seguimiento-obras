@@ -94,7 +94,7 @@ plugins: {
   mounted () {
       //console.log(this.label);
     this.renderChart({
-      labels: ['A Iniciar','En Ejecución','Paralizado'],
+      labels: this.label,
       datasets: [
         {
           label: 'Avance',
@@ -102,7 +102,7 @@ plugins: {
           backgroundColor: ['#F6F454', '#1FDC61','#F86F5F'],
           hoverBackgroundColor : ['#F6F454', '#1FDC61','#F86F5F'],
           fill: false,
-          data: [1,13,0],
+          data: this.values,
       datalabels: {
         align: 'start',
         anchor: 'start'

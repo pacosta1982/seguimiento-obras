@@ -34,7 +34,7 @@
                 ESTADO DE PROYECTOS
             </div>
             <div class="card-body">
-                <pie :label="{{ json_encode(array_keys($estados->toArray())) }}" :values="{{ json_encode(array_values($estados->toArray())) }}" />
+                <pie :label="{{ json_encode($labels_estados_fixed) }}"  :values="{{ json_encode(array_values($estados->toArray())) }}" />
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
                 AVANCE DE PROYECTOS
             </div>
             <div class="card-body">
-            <pieavance />
+            <pieavance :label="{{ json_encode(array_keys($avance)) }}"  :values="{{ json_encode(array_values($avance)) }}" />
             </div>
         </div>
     </div>
@@ -58,7 +58,7 @@
             </div>
 
             <div class="card-body">
-            <bar />
+            <bar :label="{{ json_encode($labels_fixed) }}" :values="{{ json_encode(array_values($departamentos->toArray())) }}" />
             </div>
         </div>
     </div>

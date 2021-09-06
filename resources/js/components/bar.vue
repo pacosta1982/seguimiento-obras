@@ -5,14 +5,14 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 export default {
   extends: Bar,
-  /*props: {
+  props: {
         label: {
             type: Array
         },
         values: {
             type: Array
         }
-    },*/
+    },
   name: "grafico",
   data: () => ({
     options: {
@@ -81,17 +81,15 @@ export default {
   mounted () {
       //console.log(this.label);
     this.renderChart({
-      labels: ['CONCEPCION', 'SAN PEDRO', 'CORDILLERA', 'GUAIRA', 'CAAGUAZU', 'CAAZAPA', 'ITAPUA',
-        'MISIONES', 'PARAGUARI', 'ALTO PARANA', 'CENTRAL', 'ÑEEMBUCU', 'AMAMBAY', 'CANINDEYU', 'PTE. HAYES'
-        , 'BOQUERON', 'ALTO PARAGUAY'],
+      labels: this.label,
       datasets: [
     {
-      label: 'A Iniciar',
-      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+      label: 'Casas',
+      data: this.values,
       borderColor: '#F6F454',
-      backgroundColor: '#F6F454',
+      backgroundColor: '#1FDC61',
     },
-    {
+    /*{
       label: 'En Ejecución',
       data: [0,160,24,0,34,0,0,0,28,111,12,0,73,0,0,102,5],
       borderColor: '#1FDC61',
@@ -102,7 +100,7 @@ export default {
       data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       borderColor: '#F86F5F',
       backgroundColor: '#F86F5F',
-    },
+    },*/
   ]
     }, this.options)
   }

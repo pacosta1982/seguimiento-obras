@@ -5,14 +5,14 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 export default {
   extends: Pie,
-  /*props: {
+  props: {
         label: {
             type: Array
         },
         values: {
             type: Array
         }
-    },*/
+    },
   name: "grafico",
   data: () => ({
     options: {
@@ -94,15 +94,15 @@ plugins: {
   mounted () {
       //console.log(this.label);
     this.renderChart({
-      labels: ['0% - 20%','21% - 40%','41% - 60%','61% - 80', '81% - 100'],
+      labels: this.label,
       datasets: [
         {
           label: 'Avance',
           borderColor: 'black',
           backgroundColor: ['#F86F5F','#F6F454','#1FDC61','blue','grey'],
-          hoverBackgroundColor : ['#F86F5F','#F6F454', '#1FDC61',],
+          hoverBackgroundColor : ['#F86F5F','#F6F454', '#1FDC61','blue','grey'],
           fill: false,
-          data: [11,2,1,0,0],
+          data: this.values,
       datalabels: {
         align: 'start',
         anchor: 'start'
