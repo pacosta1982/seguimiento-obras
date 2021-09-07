@@ -93,7 +93,7 @@ class HomeController extends Controller
             '81% - 100%' => $a5->where('SEOBFisAva', '>', 81)->where('SEOBFisAva', '<=', 100)->count(),
         ];
 
-        //return array_values($avance);
+        //return $avance;
 
         return view('home', compact('estados', 'departamentos', 'labels_fixed', 'labels_estados_fixed', 'avance'));
     }

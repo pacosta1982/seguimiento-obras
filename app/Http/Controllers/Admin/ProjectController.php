@@ -33,33 +33,19 @@ class ProjectController extends Controller
      */
     public function index(IndexProjects $request)
     {
-        //return $request;
-        // create and AdminListing instance for a specific model and
-        /*$data = AdminListing::create(Project::class)->processRequestAndGet(
-            // pass the request with params
-            $request,
 
-            // set columns to query
-            ['SEOBId', 'SEOBEmpr', 'SEOBProy', 'SEOBAvanc'],
-
-            // set columns to searchIn
-            ['SEOBId', 'SEOBEmpr', 'SEOBProy', 'SEOBAvanc']
-        );*/
-
-        /*$data = Project::select('SEOBId', 'SEOBEmpr', 'SEOBProy', 'SEOBAvanc')
-            ->orderBy('SEOBId', 'desc')->paginate(10);*/
+        $dt = new \DateTime('2021-05-21');
+        $date = $dt->format('Y-d-m H:i:s.v');
         $data = AdminListing::create(Project::class)
             //->attachOrdering('id')
             ->attachPagination($request->currentPage)
-            /*->attachSearch(
-                $request->search,
-                // specify an array of columns to search in
-                ['SEOBProy']
-            )*/
-            ->modifyQuery(function ($query) use ($request) {
+
+            ->modifyQuery(function ($query) use ($request, $date) {
                 $query->where('SEOBAdmin', 8);
                 $query->where('SEOBPlan', 14);
                 $query->where('SEOBProgr', 4);
+                $query->where('SEOBNCont', '02/2021');
+                $query->where('SEOBAdjFec', $date);
                 //$query->where('SEOBPlan', 4);
                 if ($request->search) {
                     //return 'funciona';

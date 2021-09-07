@@ -99,8 +99,8 @@ plugins: {
         {
           label: 'Avance',
           borderColor: 'black',
-          backgroundColor: ['#F6F454', '#1FDC61','#F86F5F'],
-          hoverBackgroundColor : ['#F6F454', '#1FDC61','#F86F5F'],
+          backgroundColor: ['#F86F5F','#F6F454','#1FDC61','blue','grey','pink'],
+          hoverBackgroundColor : ['#F86F5F','#F6F454','#1FDC61','blue','grey','pink'],
           fill: false,
           data: this.values,
       datalabels: {

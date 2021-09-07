@@ -81,7 +81,7 @@
 
 <visit-listing
         :data="{{ $data->toJson() }}"
-        :url="'{{ url('admin/visits') }}'"
+        :url="'{{ url('admin/projects/'.$project->SEOBId.'/show') }}'"
         inline-template>
 
         <div class="row">
@@ -162,10 +162,10 @@
                             </div>
 
                             <div class="no-items-found" v-if="!collection.length > 0">
-                                <i class="icon-magnifier"></i>
+                                <!--<i class="icon-magnifier"></i>-->
                                 <h3>{{ trans('brackets/admin-ui::admin.index.no_items') }}</h3>
-                                <p>{{ trans('brackets/admin-ui::admin.index.try_changing_items') }}</p>
-                                <a class="btn btn-primary btn-spinner" href="{{ url('admin/visits/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.visit.actions.create') }}</a>
+                                <!--<p>{{ trans('brackets/admin-ui::admin.index.try_changing_items') }}</p>
+                                <a class="btn btn-primary btn-spinner" href="{{ url('admin/visits/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.visit.actions.create') }}</a>-->
                             </div>
                         </div>
                     </div>
