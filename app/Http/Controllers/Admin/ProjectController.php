@@ -36,23 +36,30 @@ class ProjectController extends Controller
 
         $dt = new \DateTime('2021-05-21');
         $date = $dt->format('Y-d-m H:i:s.v');
+
+        $dt2 = new \DateTime('2021-06-04');
+        $date2 = $dt2->format('Y-d-m H:i:s.v');
+
+        $dt3 = new \DateTime('2021-07-02');
+        $date3 = $dt3->format('Y-d-m H:i:s.v');
+
         $data = AdminListing::create(Project::class)
             //->attachOrdering('id')
             ->attachPagination($request->currentPage)
 
-            ->modifyQuery(function ($query) use ($request, $date) {
-                $query->where('SEOBAdmin', 8);
+            ->modifyQuery(function ($query) use ($request, $date, $date2, $date3) {
+                /*$query->where('SEOBAdmin', 8);
                 $query->where('SEOBPlan', 14);
                 $query->where('SEOBProgr', 4);
                 $query->where('SEOBNCont', '02/2021');
-                $query->where('SEOBAdjFec', $date);
-                //$query->where('SEOBPlan', 4);
+                $query->whereIn('SEOBAdjFec', [$date, $date2, $date3]);*/
+                $query->where('SEOBVerObra', 'S');
                 if ($request->search) {
                     //return 'funciona';
 
                     $query->where('SEOBProy', 'like', '%' . $request->search . '%');
-                    $query->orWhere('SEOBEmpr', 'like', '%' . $request->search . '%');
-                    $query->orWhere('SEOBId', 'like', '%' . $request->search . '%');
+                    //$query->orWhere('SEOBEmpr', 'like', '%' . $request->search . '%');
+                    //$query->orWhere('SEOBId', 'like', '%' . $request->search . '%');
                     //$query->orWhere('SEOBId', $request->search);
                     //$query->paginate(15);
                 }
