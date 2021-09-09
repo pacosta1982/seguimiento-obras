@@ -75,7 +75,7 @@
     </div>
 
     <div class="card-body">
-    <googlemap :latitude="{{ $latlong["lat"] ? $latlong["lat"] : '-25.2949068' }}" :longitude="{{ $latlong["lon"] ? $latlong["lon"]: '-57.6087548' }}" />
+    <googlemap :latitude="{{ $latlong["lat"] }}" :longitude="{{ $latlong["lon"] }}" />
     </div>
   </div>
 

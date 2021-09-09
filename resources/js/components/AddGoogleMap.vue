@@ -28,8 +28,8 @@ export default {
     data(props) {
         return {
             center: {
-                lat: -25.2949068,
-                lng: -57.6087548
+                lat: props.latitude,
+                lng: props.longitude
             },
             locationMarkers: [],
             locPlaces: [],
