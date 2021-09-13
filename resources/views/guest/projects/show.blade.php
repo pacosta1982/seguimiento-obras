@@ -7,10 +7,12 @@
 <div class="card">
     <div class="card-header text-center">
          DATOS DEL PROYECTO
+
          <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0" href="{{ url()->previous() }}" role="button"><i class="fa fa-undo"></i>&nbsp; {{ trans('admin.guest.actions.back') }}</a>
     </div>
 
     <div class="card-body">
+
         <div class="row">
             <div class="form-group col-sm-4">
                 <p class="card-text"><strong>PROYECTO:</strong>  {{ $project->SEOBProy }}</p>
@@ -44,6 +46,13 @@
                 <p class="card-text"><strong>FISCAL:</strong> {{ $project->SEOBConstr }}</p>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <p class="card-text"><strong>LLAMADO N°:</strong> 02/2021</p>
+            </div>
+
+        </div>
+
     </div>
   </div>
 
@@ -154,15 +163,38 @@
                         <i class="fa fa-align-justify"></i> {{ trans('admin.guest.actions.applicants') }}
                     </div>
                     <div class="card-body" v-cloak>
-                        <div class="card-block">
+                        <!--<div class="card-block">-->
+                            <table class="table table-sm table-hover table-borderless">
+                                <thead>
+                                    <tr>
+                                    <th class="d-none d-sm-block">#</th>
+                                    <th>{{ trans('admin.guest.columns.applicantname') }}</th>
+                                    <th>{{ trans('admin.guest.columns.ci') }}</th>
+                                    <th>{{ trans('admin.guest.columns.applicantconame') }}</th>
+                                    <th>{{ trans('admin.guest.columns.ci') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($postulantes as $key=>$item)
+                                    <tr>
+                                    <th class="d-none d-sm-block" scope="row">{{$key+1}}</th>
+                                    <td>{{ $item->CerposNom }}</td>
+                                    <td>{{  number_format((int)$item->CerPosCod,0,".",".") }}</td>
+                                    <td>{{ $item->CerCoNo }}</td>
+                                    <td>{{ number_format((int)$item->CerCoCI,0,".",".") }}</td>
+                                    </tr>
 
-                            <table class="table table-hover table-listing">
+                                    @endforeach
+                                </tbody>
+                                </table>
+
+                            <!--<table class="table table-hover table-listing ">
                                 <thead>
                                     <tr>
                                         <th class="text-center" >{{ trans('admin.guest.columns.id') }}</th>
                                         <th>{{ trans('admin.guest.columns.applicantname') }}</th>
                                         <th class="text-center" >{{ trans('admin.guest.columns.ci') }}</th>
-                                        <th>{{ trans('admin.guest.columns.applicantconame') }}</th>
+                                        <th >{{ trans('admin.guest.columns.applicantconame') }}</th>
                                         <th class="text-center"  >{{ trans('admin.guest.columns.ci') }}</th>
                                         <th></th>
                                     </tr>
@@ -183,8 +215,8 @@
                                     </tr>
                                     @endforeach
                                 </tbody>
-                            </table>
-                        </div>
+                            </table>-->
+                        <!--</div>-->
                     </div>
                 </div>
             </div>

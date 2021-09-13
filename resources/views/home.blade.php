@@ -6,7 +6,7 @@
 
 <div class="card   text-center">
     <div class="card-header">
-        <h2>Bienvenido al Sistema de Monitoreo de Obras Llamado N° 02/2021</h2>
+        <h2>Bienvenido al Sistema de Monitoreo de Obras</h2>
         <h6>Seleccione una de las siguientes opciones para continuar</h6>
     </div>
     <div class="card-body">
