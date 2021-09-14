@@ -4,7 +4,7 @@
         <gmap-map
             :zoom="14"
             :center="center"
-            map-type-id="satellite"
+            map-type-id="hybrid"
             style="width:100%;  height: 300px;"
         >
             <gmap-marker
