@@ -48,7 +48,7 @@
         </div>
         <div class="row">
             <div class="form-group col-sm-4">
-                <p class="card-text"><strong>LLAMADO N°:</strong> 02/2021</p>
+                <p class="card-text"><strong>LLAMADO N°: </strong>{{ $project->SEOBNCont }} </p>
             </div>
 
         </div>
