@@ -40,10 +40,10 @@
                 <p class="card-text"><strong>VIVIENDAS:</strong> {{ $project->SEOBViv }}</p>
             </div>
             <div class="form-group col-sm-4">
-                <p class="card-text"><strong>CONSTRUCTORA:</strong> {{ $project->SEOBFisc }}</p>
+                <p class="card-text"><strong>CONSTRUCTORA:</strong> {{ $project->SEOBConstr }}</p>
             </div>
             <div class="form-group col-sm-4">
-                <p class="card-text"><strong>FISCAL:</strong> {{ $project->SEOBConstr }}</p>
+                <p class="card-text"><strong>FISCAL:</strong> {{ $project->SEOBFisc }}</p>
             </div>
         </div>
         <div class="row">
