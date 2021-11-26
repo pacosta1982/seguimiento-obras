@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Visit\DestroyVisit;
 use App\Http\Requests\Admin\Visit\IndexVisit;
 use App\Http\Requests\Admin\Visit\StoreVisit;
 use App\Http\Requests\Admin\Visit\UpdateVisit;
+use App\Models\Project;
 use App\Models\Visit;
 use Brackets\AdminListing\Facades\AdminListing;
 use Exception;
@@ -19,6 +20,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Http;
 
 class VisitsController extends Controller
 {
@@ -96,6 +98,93 @@ class VisitsController extends Controller
 
         return view('admin.visit.create');
     }
+
+    public function sync(Project $project)
+    {
+
+        //return "hola";
+        $data = [];
+
+        $response = Http::get("https://analisis.stp.gov.py/user/muvh/api/v2/sql?api_key=04fd4c0ac550ea7ddf750e8426c05e0f9f907784&q=select * from muvhssm.v_respuesta_relevamient_muvh where muvhssm.v_respuesta_relevamient_muvh.id_muvh_proyecto='" . $project->SEOBId . "' order by muvhssm.v_respuesta_relevamient_muvh.relevamiento ,muvhssm.v_respuesta_relevamient_muvh.pregunta_id");
+        //return $response;
+
+        foreach ($response['rows'] as $key => $value) {
+
+            $data[$value['relevamiento']][$value['pregunta_id']] = $value['respuesta_respuesta'];
+            $data[$value['relevamiento']]['latitud'] = $value['latitud'];
+            $data[$value['relevamiento']]['longitud'] = $value['longitud'];
+        }
+
+        $visitas =  Visit::where('project_id', $project->SEOBId)->orderBy('visit_number')->get();
+
+        //return $visitas;
+
+        //return $data;
+        return view('admin.visit.sync', compact('data', 'visitas', 'project'));
+    }
+
+    public function syncstore($project, $rel)
+    {
+        //return $rel;
+        $data = [];
+        $response = Http::get("https://analisis.stp.gov.py/user/muvh/api/v2/sql?api_key=04fd4c0ac550ea7ddf750e8426c05e0f9f907784&q=select * from muvhssm.v_respuesta_relevamient_muvh where muvhssm.v_respuesta_relevamient_muvh.relevamiento=" . $rel);
+        //return $response;
+
+        foreach ($response['rows'] as $key => $value) {
+
+            $data[$value['relevamiento']][$value['pregunta_id']] = $value['respuesta_respuesta'];
+            $data[$value['relevamiento']]['latitud'] = $value['latitud'];
+            $data[$value['relevamiento']]['longitud'] = $value['longitud'];
+        }
+        //return $data;
+        $sanitized['project_id'] = $project;
+        $sanitized['visit_number'] = $data[$rel]['2720'];
+        $sanitized['advance'] = $data[$rel]['2719'];
+        $sanitized['visit_date'] = $data[$rel]['2718'];
+        $sanitized['latitude'] = $data[$rel]['latitud'];
+        $sanitized['longitude'] = $data[$rel]['longitud'];
+        $sanitized['visit_id'] = $rel;
+        //return $sanitized;
+        $visit = Visit::create($sanitized);
+
+        return redirect('admin/visits/' . $project . '/sync');
+    }
+
+    public function syncimage(Project $project, $rel)
+    {
+        //return "hola";
+
+        $data = [];
+        $response = Http::get("https://analisis.stp.gov.py/user/muvh/api/v2/sql?api_key=04fd4c0ac550ea7ddf750e8426c05e0f9f907784&q=select * from muvhssm.v_capturas_muvh where muvhssm.v_capturas_muvh.relevamientos_id=" . $rel);
+        $imagenes = collect($response['rows']);
+
+
+
+
+        /*foreach ($response['rows'] as $key => $value) {
+
+            //$data[$value['relevamiento']][$value['pregunta_id']] = $value['respuesta_respuesta'];
+            //$data[$value['relevamiento']]['latitud'] = $value['latitud'];
+            //$data[$value['relevamiento']]['longitud'] = $value['longitud'];
+            $data[] = [
+                'id' => $value['id']
+            ];
+        }*/
+        //return $imagenes;
+
+        return view('admin.visit.syncimage', compact('project', 'imagenes'));
+    }
+
+    public function download($name)
+    {
+        $filename = $name . '.jpg';
+        $tempImage = tempnam(sys_get_temp_dir(), $filename);
+        copy('https://movil.stp.gov.py/staticFiles/' . $name . '.jpg', $tempImage);
+        return response()->download($tempImage, $filename);
+    }
+
+
+
 
     /**
      * Store a newly created resource in storage.

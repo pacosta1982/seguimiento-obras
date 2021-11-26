@@ -21,6 +21,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Http;
 
 class ProjectController extends Controller
 {
@@ -127,7 +128,19 @@ class ProjectController extends Controller
     {
         $this->authorize('admin.visit.show', $project);
         $projectid = $project->SEOBId;
+        /*$data = [];
 
+        $response = Http::get("https://analisis.stp.gov.py/user/muvh/api/v2/sql?api_key=04fd4c0ac550ea7ddf750e8426c05e0f9f907784&q=select * from muvhssm.v_respuesta_relevamient_muvh where muvhssm.v_respuesta_relevamient_muvh.id_muvh_proyecto='" . $project->SEOBId . "' order by muvhssm.v_respuesta_relevamient_muvh.relevamiento ,muvhssm.v_respuesta_relevamient_muvh.pregunta_id");
+        //return $response;
+
+        foreach ($response['rows'] as $key => $value) {
+
+            $data[$value['relevamiento']][$value['pregunta']] = $value['respuesta_respuesta'];
+            $data[$value['relevamiento']]['latitud'] = $value['latitud'];
+            $data[$value['relevamiento']]['longitud'] = $value['longitud'];
+        }
+
+        return $data;*/
 
         $visitas = $project->visits->pluck('visit_number');
         $avances = $project->visits->pluck('advance');

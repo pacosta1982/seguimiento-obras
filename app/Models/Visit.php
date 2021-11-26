@@ -26,6 +26,7 @@ class Visit extends Model implements HasMedia
         'latitude',
         'longitude',
         'visit_date',
+        'visit_id'
 
     ];
 

@@ -13,11 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
-    return view('home');
-});*/
+/*Route::get('/ejemplo', function () {
+    $filename = 'temp-image.jpg';
+    $tempImage = tempnam(sys_get_temp_dir(), $filename);
+    copy('https://movil.stp.gov.py/staticFiles/1631802246615.jpg', $tempImage);
+    return response()->download($tempImage, $filename);
+});
+*/
+
 
 Route::get('/', 'App\Http\Controllers\Admin\HomeController@dashboard');
+Route::get('/download/{name}', 'App\Http\Controllers\Admin\VisitsController@download');
+
+
 
 Route::get('/projects', 'App\Http\Controllers\Admin\HomeController@index');
 Route::get('/projects/{project}/show', 'App\Http\Controllers\Admin\HomeController@show');
@@ -65,6 +73,9 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
         Route::prefix('visits')->name('visits/')->group(static function () {
             Route::get('/',                                             'VisitsController@index')->name('index');
             Route::get('/create',                                       'VisitsController@create')->name('create');
+            Route::get('/{project}/sync',                               'VisitsController@sync')->name('sync');
+            Route::get('/{project}/{rel}/syncstore',                    'VisitsController@syncstore')->name('syncstore');
+            Route::get('/{project}/{rel}/syncimage',                    'VisitsController@syncimage')->name('syncimage');
             Route::post('/',                                            'VisitsController@store')->name('store');
             Route::get('/{visit}/edit',                                 'VisitsController@edit')->name('edit');
             Route::post('/bulk-destroy',                                'VisitsController@bulkDestroy')->name('bulk-destroy');
