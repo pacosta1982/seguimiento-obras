@@ -166,7 +166,7 @@ class VisitsController extends Controller
         //$zip_file=storage_path('app/tobedownload/invoices.zip');
 
 
-        $name = 'Test-'.time().'.zip';
+        $name = 'IMG-'.time().'.zip';
         $zipper = new \Madnest\Madzipper\Madzipper;
 
         $data = [];
@@ -181,23 +181,12 @@ class VisitsController extends Controller
 
         }
 
-        foreach ($imagenes as $key => $value) {
-            # code...
-            //$files = storage_path('images/'.basename($value['imagen']));
-            //$zipper->make(storage_path("app/tobedownload/".$name))->add($files);
-        }
 
         $files = glob(storage_path('app/'.$time.'/*'));
-        $zipper->make(storage_path("app/tobedownload/".$name))->add($files)->close();
+        $zipper->make(storage_path("app/tobedownload/".$name))->add($files);
 
 
-        //return $data;
-        //$zipper->zip(storage_path("app/tobedownload/".$name))->folder('IMAGENES')->add($data);
-        //return $data;
-
-        //$zipper->make(storage_path("app/tobedownload/".$name))->folder('')->add($data);
-
-        //$zipper->close();
+        $zipper->close();
 
         return response()->download(storage_path("app/tobedownload/".$name));
 
