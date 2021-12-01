@@ -161,7 +161,8 @@ class HomeController extends Controller
             ['id', 'visit_number', 'advance'],
             function ($query) use ($projectid) {
                 $query
-                    ->where('visits.project_id', '=', $projectid);
+                    ->where('visits.project_id', '=', $projectid)
+                    ->orderByRaw('CAST(visit_number AS INTEGER)');
                 //->orderBy('requirements.requirement_type_id');
             }
         );

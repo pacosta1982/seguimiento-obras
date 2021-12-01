@@ -115,7 +115,7 @@ class VisitsController extends Controller
             $data[$value['relevamiento']]['longitud'] = $value['longitud'];
         }
 
-        $visitas =  Visit::where('project_id', $project->SEOBId)->orderBy('visit_number')->get();
+        $visitas =  Visit::where('project_id', $project->SEOBId)->orderBy('created_at')->get();
 
         //return $visitas;
 
@@ -158,21 +158,50 @@ class VisitsController extends Controller
         $response = Http::get("https://analisis.stp.gov.py/user/muvh/api/v2/sql?api_key=04fd4c0ac550ea7ddf750e8426c05e0f9f907784&q=select * from muvhssm.v_capturas_muvh where muvhssm.v_capturas_muvh.relevamientos_id=" . $rel);
         $imagenes = collect($response['rows']);
 
-
-
-
-        /*foreach ($response['rows'] as $key => $value) {
-
-            //$data[$value['relevamiento']][$value['pregunta_id']] = $value['respuesta_respuesta'];
-            //$data[$value['relevamiento']]['latitud'] = $value['latitud'];
-            //$data[$value['relevamiento']]['longitud'] = $value['longitud'];
-            $data[] = [
-                'id' => $value['id']
-            ];
-        }*/
         //return $imagenes;
 
-        return view('admin.visit.syncimage', compact('project', 'imagenes'));
+        $time = time();
+
+        \Storage::disk('local')->makeDirectory($time,$mode=0775); // zip store here
+        //$zip_file=storage_path('app/tobedownload/invoices.zip');
+
+
+        $name = 'Test-'.time().'.zip';
+        $zipper = new \Madnest\Madzipper\Madzipper;
+
+        $data = [];
+        foreach ($imagenes as $key => $value) {
+            # code...
+            //$url = $value['imagen'];
+            $img = storage_path('app/'.$time.'/'.basename($value['imagen']));
+            file_put_contents($img, file_get_contents($value['imagen']));
+
+
+            //$data[$key] = basename($url);
+
+        }
+
+        foreach ($imagenes as $key => $value) {
+            # code...
+            //$files = storage_path('images/'.basename($value['imagen']));
+            //$zipper->make(storage_path("app/tobedownload/".$name))->add($files);
+        }
+
+        $files = glob(storage_path('app/'.$time.'/*'));
+        $zipper->make(storage_path("app/tobedownload/".$name))->add($files)->close();
+
+
+        //return $data;
+        //$zipper->zip(storage_path("app/tobedownload/".$name))->folder('IMAGENES')->add($data);
+        //return $data;
+
+        //$zipper->make(storage_path("app/tobedownload/".$name))->folder('')->add($data);
+
+        //$zipper->close();
+
+        return response()->download(storage_path("app/tobedownload/".$name));
+
+        //return view('admin.visit.syncimage', compact('project', 'imagenes'));
     }
 
     public function download($name)

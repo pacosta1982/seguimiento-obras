@@ -44,7 +44,7 @@ class Project extends Model /*implements HasMedia*/
 
     public function visits()
     {
-        return $this->hasMany(Visit::class, 'project_id')->orderBy('id');
+        return $this->hasMany(Visit::class, 'project_id')->orderByRaw('CAST(visit_number AS INTEGER)');
     }
 
     public function advance()

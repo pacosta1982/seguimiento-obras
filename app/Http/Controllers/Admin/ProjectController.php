@@ -144,6 +144,8 @@ class ProjectController extends Controller
 
         $visitas = $project->visits->pluck('visit_number');
         $avances = $project->visits->pluck('advance');
+        //return $project->visits;
+        //$visitas;
         $data = AdminListing::create(Visit::class)->processRequestAndGet(
             // pass the request with params
             $request,
@@ -155,8 +157,9 @@ class ProjectController extends Controller
             ['id', 'visit_number', 'advance'],
             function ($query) use ($projectid) {
                 $query
-                    ->where('visits.project_id', '=', $projectid);
-                //->orderBy('requirements.requirement_type_id');
+                    ->where('visits.project_id', '=', $projectid)
+                    ->orderByRaw('CAST(visit_number AS INTEGER)');
+                    //->orderBy('visit_number');
             }
         );
 

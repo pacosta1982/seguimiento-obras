@@ -78,7 +78,7 @@
 
 <visit-listing
         :data="{{ $data->toJson() }}"
-        :url="'{{ url('admin/visits') }}'"
+        :url="'{{ url('projects/'.$project->SEOBId.'/show') }}'"
         inline-template>
 
         <div class="row">
