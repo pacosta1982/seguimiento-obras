@@ -6,3 +6,4 @@ import './projects';
 import './questionnaire';
 import './question';
 import './project-question';
+import './user';
