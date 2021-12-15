@@ -101,3 +101,49 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
         });
     });
 });
+
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
+        Route::prefix('questionnaires')->name('questionnaires/')->group(static function() {
+            Route::get('/',                                             'QuestionnairesController@index')->name('index');
+            Route::get('/create',                                       'QuestionnairesController@create')->name('create');
+            Route::post('/',                                            'QuestionnairesController@store')->name('store');
+            Route::get('/{questionnaire}/edit',                         'QuestionnairesController@edit')->name('edit');
+            Route::post('/bulk-destroy',                                'QuestionnairesController@bulkDestroy')->name('bulk-destroy');
+            Route::post('/{questionnaire}',                             'QuestionnairesController@update')->name('update');
+            Route::delete('/{questionnaire}',                           'QuestionnairesController@destroy')->name('destroy');
+        });
+    });
+});
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
+        Route::prefix('questions')->name('questions/')->group(static function() {
+            Route::get('/',                                             'QuestionsController@index')->name('index');
+            Route::get('/create',                                       'QuestionsController@create')->name('create');
+            Route::post('/',                                            'QuestionsController@store')->name('store');
+            Route::get('/{question}/edit',                              'QuestionsController@edit')->name('edit');
+            Route::post('/bulk-destroy',                                'QuestionsController@bulkDestroy')->name('bulk-destroy');
+            Route::post('/{question}',                                  'QuestionsController@update')->name('update');
+            Route::delete('/{question}',                                'QuestionsController@destroy')->name('destroy');
+        });
+    });
+});
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
+        Route::prefix('project-questions')->name('project-questions/')->group(static function() {
+            Route::get('/',                                             'ProjectQuestionController@index')->name('index');
+            Route::get('/create',                                       'ProjectQuestionController@create')->name('create');
+            Route::post('/',                                            'ProjectQuestionController@store')->name('store');
+            Route::get('/{projectQuestion}/edit',                       'ProjectQuestionController@edit')->name('edit');
+            Route::post('/bulk-destroy',                                'ProjectQuestionController@bulkDestroy')->name('bulk-destroy');
+            Route::post('/{projectQuestion}',                           'ProjectQuestionController@update')->name('update');
+            Route::delete('/{projectQuestion}',                         'ProjectQuestionController@destroy')->name('destroy');
+        });
+    });
+});

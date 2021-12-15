@@ -170,3 +170,49 @@ $factory->define(App\Models\Visit::class, static function (Faker\Generator $fake
         
     ];
 });
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Questionnaire::class, static function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->firstName,
+        'description' => $faker->sentence,
+        'created_at' => $faker->dateTime,
+        'updated_at' => $faker->dateTime,
+        
+        
+    ];
+});
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Question::class, static function (Faker\Generator $faker) {
+    return [
+        'questionnaire_id' => $faker->sentence,
+        'name' => $faker->text(),
+        'description' => $faker->text(),
+        'created_at' => $faker->dateTime,
+        'updated_at' => $faker->dateTime,
+        
+        
+    ];
+});
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Question::class, static function (Faker\Generator $faker) {
+    return [
+        'questionnaire_id' => $faker->sentence,
+        'name' => $faker->firstName,
+        'description' => $faker->text(),
+        'created_at' => $faker->dateTime,
+        'updated_at' => $faker->dateTime,
+        
+        
+    ];
+});
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\ProjectQuestion::class, static function (Faker\Generator $faker) {
+    return [
+        'questionnaire_id' => $faker->sentence,
+        'project_id' => $faker->sentence,
+        'created_at' => $faker->dateTime,
+        'updated_at' => $faker->dateTime,
+        
+        
+    ];
+});

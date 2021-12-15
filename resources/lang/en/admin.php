@@ -49,5 +49,57 @@ return [
         ],
     ],
 
+    'questionnaire' => [
+        'title' => 'Questionnaires',
+
+        'actions' => [
+            'index' => 'Questionnaires',
+            'create' => 'New Questionnaire',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'name' => 'Name',
+            'description' => 'Description',
+            
+        ],
+    ],
+
+    'question' => [
+        'title' => 'Questions',
+
+        'actions' => [
+            'index' => 'Questions',
+            'create' => 'New Question',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'questionnaire_id' => 'Questionnaire',
+            'name' => 'Name',
+            'description' => 'Description',
+            
+        ],
+    ],
+
+    'project-question' => [
+        'title' => 'Project Question',
+
+        'actions' => [
+            'index' => 'Project Question',
+            'create' => 'New Project Question',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'questionnaire_id' => 'Questionnaire',
+            'project_id' => 'Project',
+            
+        ],
+    ],
+
     // Do not delete me :) I'm used for auto-generation
 ];
