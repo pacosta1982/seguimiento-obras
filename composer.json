@@ -13,7 +13,8 @@
         "laravel/framework": "^8.54",
         "laravel/tinker": "^2.5",
         "league/glide-laravel": "^1.0",
-        "madnest/madzipper": "^1.1"
+        "madnest/madzipper": "^1.1",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "brackets/admin-generator": "^6.1",
