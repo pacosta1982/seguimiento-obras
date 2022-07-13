@@ -69,6 +69,7 @@
   <div class="card">
     <div class="card-header text-center">
          UBICACION DEL PROYECTO
+         <a class="btn btn-danger btn-spinner btn-sm pull-right m-b-0" href="http://maps.google.com/maps?q={{$latlong['lat']}}{{$latlong["lon"]}}&t=k" target="_blank"><i class="fa fa-map-marker"></i> Google Maps</a>
     </div>
 
     <div class="card-body">
