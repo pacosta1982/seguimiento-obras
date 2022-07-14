@@ -34,7 +34,7 @@
                             <table class="table table-hover table-listing">
                                 <thead>
                                     <tr>
-                                        <th is='sortable' :column="'SEOBId'">{{ trans('admin.projects.columns.SEOBId') }}</th>
+                                        <th is='sortable' :column="'SEOBId'">{{ trans('admin.projects.columns.call') }}</th>
                                         <th is='sortable' :column="'project_id'">{{ trans('admin.projects.columns.SEOBProy') }}</th>
                                         <th is='sortable' :column="'project_id'">{{ trans('admin.projects.columns.state') }}</th>
                                         <th is='sortable' :column="'project_id'">{{ trans('admin.projects.columns.city') }}</th>
@@ -48,13 +48,13 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(item, index) in collection" :key="item.id" :class="bulkItems[item.id] ? 'bg-bulk' : ''">
-                                        <td>@{{ item.SEOBId }}</td>
+                                        <td>@{{ item.SEOBNCont }}</td>
                                         <td>@{{ item.SEOBProy }}</td>
                                         <td>@{{ item.departamento ? item.departamento.DptoNom : '' }}</td>
                                         <td>@{{ item.distrito ? item.distrito.CiuNom : '' }}</td>
                                         <td>@{{ item.SEOBEmpr }}</td>
                                         <td class="text-center">@{{ item.SEOBViv }}</td>
-                                        <td class="text-center"><span :class="item.SEOBEst == 'E' ? 'badge bg-success' : 'badge bg-warning'">@{{ item.status.name }}</span></td>
+                                        <td class="text-center"><span :class="item.SEOBEst == 'E' ? 'badge bg-warning' : 'badge bg-success'">@{{ item.status.name }}</span></td>
                                         <td>@{{ item.advance ? item.advance.advance : '0' }} %</td>
                                         <td>
                                             <div class="row no-gutters">

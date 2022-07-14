@@ -118,16 +118,34 @@ class HomeController extends Controller
                 $query->where('SEOBVerObra', 'S');
 
                 if ($request->search) {
+
+                    $query->where(function ($query) use ($request) {
+                        $query->where('SEOBProy', 'like', '%' . $request->search . '%')
+                              ->orWhereHas('departamento', function ($query) use ($request) {
+                                    $query->where('DptoNom', 'like', '%' . $request->search . '%');
+                                })
+                              ->orWhere('SEOBNCont', 'like', '%' . $request->search . '%')
+                              ->orWhere('SEOBEmpr', 'like', '%' . $request->search . '%');
+                    })->where(function ($query) {
+                        $query->where('SEOBVerObra', 'S');
+                    });
+
+
+                }
+
+                /*if ($request->search) {
                     //return 'funciona';
 
                     $query->where('SEOBProy', 'like', '%' . $request->search . '%');
+
                     //$query->orWhere('SEOBEmpr', 'like', '%' . $request->search . '%');
                     //$query->orWhere('SEOBId', 'like', '%' . $request->search . '%');
                     //$query->orWhere('SEOBId', $request->search);
                     //$query->paginate(15);
-                }
+                }*/
             })
-            ->get(['SEOBId', 'SEOBEmpr', 'SEOBProy', 'SEOBAvanc', 'DptoId', 'CiuId', 'SEOBViv', 'SEOBEst']);
+            //->orderBy('SEOBNCont')
+            ->get(['SEOBId', 'SEOBEmpr', 'SEOBProy', 'SEOBAvanc', 'DptoId', 'CiuId', 'SEOBViv', 'SEOBEst','SEOBNCont']);
 
 
         if ($request->ajax()) {
