@@ -3,6 +3,14 @@ import { gmapApi } from "vue2-google-maps";
 
 Vue.component('project-listing', {
     mixins: [AppListing],
+    data: function data() {
+        return {
+            orderBy: {
+                column: 'SEOBId',
+                direction: 'asc'
+            },
+        }
+    },
     computed: {
         google: gmapApi
     }
