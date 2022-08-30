@@ -25,7 +25,7 @@ class IndexProjects extends FormRequest
     public function rules(): array
     {
         return [
-            'orderBy' => 'in:SEOBId|nullable',
+            'orderBy' => 'in:SEOBProy|nullable',
             'orderDirection' => 'in:asc,desc|nullable',
             'search' => 'string|nullable',
             'page' => 'integer|nullable',
