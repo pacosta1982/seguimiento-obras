@@ -67,6 +67,7 @@ class ProjectController extends Controller
                 //return 'No Funciona';
             })
             //->paginate(15)
+            ->orderBy('SEOBProy', 'asc')
             ->get(['SEOBId', 'SEOBEmpr', 'SEOBProy', 'SEOBAvanc', 'DptoId', 'CiuId']);
 
         //  return $request;
