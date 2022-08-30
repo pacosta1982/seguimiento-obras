@@ -6,7 +6,7 @@ Vue.component('project-listing', {
     data: function data() {
         return {
             orderBy: {
-                column: 'SEOBId',
+                column: 'SEOBProy',
                 direction: 'asc'
             },
         }
