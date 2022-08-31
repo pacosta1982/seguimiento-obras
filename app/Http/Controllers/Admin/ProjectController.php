@@ -35,40 +35,34 @@ class ProjectController extends Controller
     public function index(IndexProjects $request)
     {
 
-        $dt = new \DateTime('2021-05-21');
-        $date = $dt->format('Y-d-m H:i:s.v');
-
-        $dt2 = new \DateTime('2021-06-04');
-        $date2 = $dt2->format('Y-d-m H:i:s.v');
-
-        $dt3 = new \DateTime('2021-07-02');
-        $date3 = $dt3->format('Y-d-m H:i:s.v');
-
         $data = AdminListing::create(Project::class)
             //->attachOrdering('id')
             ->attachPagination($request->currentPage)
 
-            ->modifyQuery(function ($query) use ($request, $date, $date2, $date3) {
-                /*$query->where('SEOBAdmin', 8);
-                $query->where('SEOBPlan', 14);
-                $query->where('SEOBProgr', 4);
-                $query->where('SEOBNCont', '02/2021');
-                $query->whereIn('SEOBAdjFec', [$date, $date2, $date3]);*/
-                $query->where('SEOBVerObra', 'S');
-                if ($request->search) {
-                    //return 'funciona';
+            ->modifyQuery(function ($query) use ($request) {
 
-                    $query->where('SEOBProy', 'like', '%' . $request->search . '%');
-                    //$query->orWhere('SEOBEmpr', 'like', '%' . $request->search . '%');
-                    //$query->orWhere('SEOBId', 'like', '%' . $request->search . '%');
-                    //$query->orWhere('SEOBId', $request->search);
-                    //$query->paginate(15);
+                $query->where('SEOBVerObra', 'S');
+
+                if ($request->search) {
+
+                    $query->where(function ($query) use ($request) {
+                        $query->where('SEOBProy', 'like', '%' . $request->search . '%')
+                              ->orWhereHas('departamento', function ($query) use ($request) {
+                                    $query->where('DptoNom', 'like', '%' . $request->search . '%');
+                                })
+                              ->orWhere('SEOBNCont', 'like', '%' . $request->search . '%')
+                              ->orWhere('SEOBEmpr', 'like', '%' . $request->search . '%')
+                              ->orWhere('SEOBId', 'like', '%' . $request->search . '%');
+                    })->where(function ($query) {
+                        $query->where('SEOBVerObra', 'S');
+                    });
+
+
                 }
-                //return 'No Funciona';
+
             })
-            //->paginate(15)
-            ->orderBy('SEOBProy', 'asc')
-            ->get(['SEOBId', 'SEOBEmpr', 'SEOBProy', 'SEOBAvanc', 'DptoId', 'CiuId']);
+            //->orderBy('SEOBNCont')
+            ->get(['SEOBId', 'SEOBEmpr', 'SEOBProy', 'SEOBAvanc', 'DptoId', 'CiuId', 'SEOBViv', 'SEOBEst','SEOBNCont']);
 
         //  return $request;
 
